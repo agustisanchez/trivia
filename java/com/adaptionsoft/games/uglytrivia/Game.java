@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
+	private static final int WINNING_PURSE = 6;
+
+	private static final int QUESTIONS_SIZE = 50;
+
 	List<Player> players = new ArrayList<>();
 
 	LinkedList<String> popQuestions = new LinkedList<>();
@@ -15,7 +19,7 @@ public class Game {
 	int currentPlayerIndex = 0;
 
 	public Game() {
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < QUESTIONS_SIZE; i++) {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
 			sportsQuestions.addLast(("Sports Question " + i));
@@ -170,7 +174,7 @@ public class Game {
 	 * Tells if the last player won.
 	 */
 	private boolean didPlayerWin() {
-		return !(currentPlayer().getPurse() == 6);
+		return !(currentPlayer().getPurse() == WINNING_PURSE);
 	}
 
 	private Player currentPlayer() {

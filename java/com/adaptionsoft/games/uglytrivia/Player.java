@@ -2,6 +2,7 @@ package com.adaptionsoft.games.uglytrivia;
 
 public class Player {
 
+	private static final int MAX_PLACES = 11;
 	private String name;
 	private int place = 0;
 	private int purse = 0;
@@ -18,8 +19,8 @@ public class Player {
 	}
 
 	public void movePlace(int shift) {
-		if (place + shift > 11) {
-			place += shift - 12;
+		if (place + shift > MAX_PLACES) {
+			place += shift - MAX_PLACES - 1;
 		} else {
 			place += shift;
 		}
