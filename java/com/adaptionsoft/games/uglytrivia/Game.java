@@ -79,8 +79,8 @@ public class Game {
 
 		players.add(new Player(playerName));
 
-		System.out.println(playerName + " was added");
-		System.out.println("They are player number " + players.size());
+		log(playerName + " was added");
+		log("They are player number " + players.size());
 	}
 
 	// TODO review
@@ -94,30 +94,30 @@ public class Game {
 
 	public void roll(int roll) {
 		Player currentPlayer = currentPlayer();
-		System.out.println(currentPlayer + " is the current player");
-		System.out.println("They have rolled a " + roll);
+		log(currentPlayer + " is the current player");
+		log("They have rolled a " + roll);
 
 		if (currentPlayer.isInPenaltyBox()) {
 			if (roll % 2 != 0) {
 				currentPlayer.setGettingOutOfPenaltyBox(true);
 
-				System.out.println(currentPlayer + " is getting out of the penalty box");
+				log(currentPlayer + " is getting out of the penalty box");
 
 				currentPlayer.movePlace(roll);
-				System.out.println(currentPlayer + "'s new location is " + currentPlayer.getPlace());
-				System.out.println("The category is " + currentCategory());
+				log(currentPlayer + "'s new location is " + currentPlayer.getPlace());
+				log("The category is " + currentCategory());
 
 				askQuestion();
 			} else {
-				System.out.println(currentPlayer + " is not getting out of the penalty box");
+				log(currentPlayer + " is not getting out of the penalty box");
 				currentPlayer.setGettingOutOfPenaltyBox(true);
 			}
 
 		} else {
 
 			currentPlayer.movePlace(roll);
-			System.out.println(currentPlayer + "'s new location is " + currentPlayer.getPlace());
-			System.out.println("The category is " + currentCategory());
+			log(currentPlayer + "'s new location is " + currentPlayer.getPlace());
+			log("The category is " + currentCategory());
 
 			askQuestion();
 		}
@@ -168,9 +168,9 @@ public class Game {
 	}
 
 	private void correctAnswerIncrementPurse(Player currentPlayer) {
-		System.out.println("Answer was correct!!!!");
+		log("Answer was correct!!!!");
 		currentPlayer.incrementPurse();
-		System.out.println(currentPlayer + " now has " + currentPlayer.getPurse() + " Gold Coins.");
+		log(currentPlayer + " now has " + currentPlayer.getPurse() + " Gold Coins.");
 	}
 
 	private void nextPlayer() {
@@ -181,8 +181,8 @@ public class Game {
 
 	public boolean wrongAnswer() {
 		Player currentPlayer = currentPlayer();
-		System.out.println("Question was incorrectly answered");
-		System.out.println(currentPlayer + " was sent to the penalty box");
+		log("Question was incorrectly answered");
+		log(currentPlayer + " was sent to the penalty box");
 		currentPlayer.setInPenaltyBox();
 
 		nextPlayer();
@@ -198,5 +198,9 @@ public class Game {
 
 	private Player currentPlayer() {
 		return players.get(currentPlayerIndex);
+	}
+
+	private void log(String message) {
+		System.out.println(message);
 	}
 }
