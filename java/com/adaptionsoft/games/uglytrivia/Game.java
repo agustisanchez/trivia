@@ -1,8 +1,10 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Game {
 	private static final int WINNING_PURSE = 6;
@@ -11,24 +13,36 @@ public class Game {
 
 	List<Player> players = new ArrayList<>();
 
-	LinkedList<String> popQuestions = new LinkedList<>();
-	LinkedList<String> scienceQuestions = new LinkedList<>();
-	LinkedList<String> sportsQuestions = new LinkedList<>();
-	LinkedList<String> rockQuestions = new LinkedList<>();
+	Map<String, LinkedList<String>> categoriesMap = new HashMap<>();
+	Map<Integer, String> placesCategoriesMap = new HashMap<>();
 
 	int currentPlayerIndex = 0;
 
 	public Game() {
-		for (int i = 0; i < QUESTIONS_SIZE; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
-		}
+		initCategories();
 	}
 
-	public String createRockQuestion(int index) {
-		return "Rock Question " + index;
+	private void initCategories() {
+		String[] categories = { "Pop", "Science", "Sports", "Rock" };
+		for (String category : categories) {
+			LinkedList<String> questions = new LinkedList<>();
+			categoriesMap.put(category, questions);
+			for (int i = 0; i < QUESTIONS_SIZE; i++) {
+				questions.addLast(category + " Question " + i);
+			}
+		}
+		placesCategoriesMap.put(0, "Pop");
+		placesCategoriesMap.put(4, "Pop");
+		placesCategoriesMap.put(8, "Pop");
+		placesCategoriesMap.put(1, "Science");
+		placesCategoriesMap.put(5, "Science");
+		placesCategoriesMap.put(9, "Science");
+		placesCategoriesMap.put(2, "Sports");
+		placesCategoriesMap.put(6, "Sports");
+		placesCategoriesMap.put(10, "Sports");
+		placesCategoriesMap.put(3, "Rock");
+		placesCategoriesMap.put(7, "Rock");
+		placesCategoriesMap.put(11, "Rock");
 	}
 
 	/**
@@ -90,35 +104,20 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
-			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
-			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
-			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
-			System.out.println(rockQuestions.removeFirst());
+		String category = currentCategory();
+		LinkedList<String> categoryQuestions = categoriesMap.get(category);
+		if (categoryQuestions.isEmpty()) {
+			throw new IllegalStateException("Ran out of questions for category " + category);
+		}
+		categoryQuestions.removeFirst();
 	}
 
 	// randomly return a category
+	// TODO No es realmente random porque viene determinado por la posición del
+	// jugador. ¿Debe ser independiente de la posición?
 	private String currentCategory() {
 		int place = currentPlayer().getPlace();
-		switch (place) {
-		case 0:
-		case 4:
-		case 8:
-			return "Pop";
-		case 1:
-		case 5:
-		case 9:
-			return "Science";
-		case 2:
-		case 6:
-		case 10:
-			return "Sports";
-		default:
-			return "Rock";
-		}
+		return placesCategoriesMap.get(place);
 	}
 
 	public boolean wasCorrectlyAnswered() {
