@@ -6,7 +6,7 @@ public class Player {
 	private int place = 0;
 	private int purse = 0;
 	private boolean inPenaltyBox = false;
-	private int highscores;
+	private boolean isGettingOutOfPenaltyBox = false;
 
 	public Player(String name) {
 		super();
@@ -45,8 +45,12 @@ public class Player {
 		return inPenaltyBox;
 	}
 
-	public int getHighscores() {
-		return highscores;
+	public void setGettingOutOfPenaltyBox(boolean isGettingOutOfPenaltyBox) {
+		this.isGettingOutOfPenaltyBox = isGettingOutOfPenaltyBox;
+	}
+
+	public boolean isGettingOutOfPenaltyBox() {
+		return isGettingOutOfPenaltyBox;
 	}
 
 	@Override
