@@ -40,19 +40,17 @@ public class Game {
 		return (howManyPlayers() >= 2);
 	}
 
-	public boolean add(String playerName) {
+	public void add(String playerName) {
 
 		players.add(new Player(playerName));
 
 		System.out.println(playerName + " was added");
 		System.out.println("They are player number " + players.size());
-		return true;
 	}
 
 	// TODO review
-	public boolean remove(String playerName) {
+	public void remove(String playerName) {
 		players.remove(howManyPlayers());
-		return true;
 	}
 
 	public int howManyPlayers() {
@@ -60,7 +58,6 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-		// TODO global??
 		Player currentPlayer = currentPlayer();
 		System.out.println(currentPlayer + " is the current player");
 		System.out.println("They have rolled a " + roll);
@@ -128,9 +125,7 @@ public class Game {
 		Player currentPlayer = currentPlayer();
 		if (currentPlayer.isInPenaltyBox()) {
 			if (currentPlayer.isGettingOutOfPenaltyBox()) {
-				System.out.println("Answer was correct!!!!");
-				currentPlayer.incrementPurse();
-				System.out.println(currentPlayer + " now has " + currentPlayer.getPurse() + " Gold Coins.");
+				correctAnswerIncrementPurse(currentPlayer);
 
 				boolean winner = didPlayerWin();
 				nextPlayer();
@@ -143,15 +138,19 @@ public class Game {
 
 		} else {
 
-			System.out.println("Answer was corrent!!!!");
-			currentPlayer.incrementPurse();
-			System.out.println(currentPlayer + " now has " + currentPlayer.getPurse() + " Gold Coins.");
+			correctAnswerIncrementPurse(currentPlayer);
 
 			boolean winner = didPlayerWin();
 			nextPlayer();
 
 			return winner;
 		}
+	}
+
+	private void correctAnswerIncrementPurse(Player currentPlayer) {
+		System.out.println("Answer was correct!!!!");
+		currentPlayer.incrementPurse();
+		System.out.println(currentPlayer + " now has " + currentPlayer.getPurse() + " Gold Coins.");
 	}
 
 	private void nextPlayer() {
