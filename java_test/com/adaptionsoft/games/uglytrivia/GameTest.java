@@ -21,6 +21,18 @@ public class GameTest {
 
 	}
 
+	@Test
+	public void whenALotMoreThanSixPlayersAreAdded_thenNoError() {
+
+		Game game = new Game();
+		for (int i = 0; i < Game.QUESTIONS_SIZE; i++) {
+			game.add("Player " + i);
+		}
+
+		play(game);
+
+	}
+
 	private void play(Game game) {
 		Random rand = new Random();
 

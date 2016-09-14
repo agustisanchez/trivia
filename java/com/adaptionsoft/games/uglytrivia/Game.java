@@ -7,7 +7,7 @@ import java.util.List;
 public class Game {
 	private static final int WINNING_PURSE = 6;
 
-	private static final int QUESTIONS_SIZE = 50;
+	public static final int QUESTIONS_SIZE = 50;
 
 	List<Player> players = new ArrayList<>();
 
