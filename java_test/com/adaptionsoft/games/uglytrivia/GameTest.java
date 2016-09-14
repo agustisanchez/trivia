@@ -46,6 +46,25 @@ public class GameTest {
 		Assert.assertTrue(categories.contains("Sports"));
 	}
 
+	@Test
+	public void whenAPlayerIsRemoved_thenTheSpecifiedPlayerIsActuallyremoved() {
+
+		String testPlayer = "Test Player";
+		String[] playerNames = { "Player 1", testPlayer, "Player 3" };
+
+		Game game = new Game();
+		for (String playerName : playerNames) {
+			game.add(playerName);
+		}
+
+		Assert.assertTrue(game.getPlayerNames().contains(testPlayer));
+
+		game.remove(testPlayer);
+		Assert.assertEquals(2, game.getPlayerNames().size());
+		Assert.assertTrue(!game.getPlayerNames().contains(testPlayer));
+
+	}
+
 	private void play(Game game) {
 		Random rand = new Random();
 
