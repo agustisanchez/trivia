@@ -106,10 +106,6 @@ public class Game {
 			System.out.println(rockQuestions.removeFirst());
 	}
 
-	public static void main(String[] args) {
-		System.out.println("Hello World!"); // Display the string.
-	}
-
 	// randomly return a category
 	private String currentCategory() {
 		if (places[currentPlayer] == 0)
@@ -177,21 +173,6 @@ public class Game {
 		if (currentPlayer == players.size())
 			currentPlayer = 0;
 		return true;
-	}
-
-	public static class SimpleSingleton {
-		private static SimpleSingleton singleInstance = new SimpleSingleton();
-
-		// Marking default constructor private
-		// to avoid direct instantiation.
-		private SimpleSingleton() {
-		}
-
-		// Get instance for class SimpleSingleton
-		public static SimpleSingleton getInstance() {
-
-			return singleInstance;
-		}
 	}
 
 	/**
