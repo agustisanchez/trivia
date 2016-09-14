@@ -83,9 +83,27 @@ public class Game {
 		log("They are player number " + players.size());
 	}
 
-	// TODO review
+	/**
+	 * Removes player with given name
+	 * 
+	 * @param playerName
+	 *            the player's name
+	 * @throws IllegalArgumentException
+	 *             if player not found
+	 * @throws IllegalStateException
+	 *             if more than one player found
+	 */
 	public void remove(String playerName) {
-		players.remove(howManyPlayers());
+		List<Player> playersFound = players.stream().filter(p -> p.getName().equals(playerName))
+				.collect(Collectors.toList());
+		if (playersFound.isEmpty()) {
+			throw new IllegalArgumentException("No such player '" + playerName + "'.");
+		} else if (playersFound.size() > 1) {
+			throw new IllegalStateException(
+					"Several players wit name '" + playerName + "' (" + playersFound.size() + ").");
+		} else {
+			players.remove(playersFound.get(0));
+		}
 	}
 
 	public int howManyPlayers() {

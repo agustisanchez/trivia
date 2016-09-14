@@ -65,6 +65,37 @@ public class GameTest {
 
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void whenPlayerToRemoveDoesNotExist_thenIllegalArgumentExceptionIshrown() {
+
+		String testPlayer = "Test Player";
+		String[] playerNames = { "Player 1", testPlayer, "Player 3" };
+
+		Game game = new Game();
+		for (String playerName : playerNames) {
+			game.add(playerName);
+		}
+
+		Assert.assertTrue(game.getPlayerNames().contains(testPlayer));
+
+		game.remove("I don't exist");
+
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void whenPlayerToRemoveNoUniqueName_thenIllegalStateExceptionIshrown() {
+
+		String testPlayer = "Test Player";
+
+		Game game = new Game();
+		game.add(testPlayer);
+		game.add(testPlayer);
+		game.add(testPlayer);
+
+		game.remove(testPlayer);
+
+	}
+
 	private void play(Game game) {
 		Random rand = new Random();
 
