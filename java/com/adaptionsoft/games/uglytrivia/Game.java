@@ -1,10 +1,13 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Game {
 	private static final int WINNING_PURSE = 6;
@@ -43,6 +46,24 @@ public class Game {
 		placesCategoriesMap.put(3, "Rock");
 		placesCategoriesMap.put(7, "Rock");
 		placesCategoriesMap.put(11, "Rock");
+	}
+
+	/**
+	 * Returns an immutable collection of the available categories.
+	 * 
+	 * @return
+	 */
+	public Set<String> getCategories() {
+		return Collections.unmodifiableSet(categoriesMap.keySet());
+	}
+
+	/**
+	 * Returns an immutable collection of the player names.
+	 * 
+	 * @return
+	 */
+	public Set<String> getPlayerNames() {
+		return players.stream().map(Player::getName).collect(Collectors.toSet());
 	}
 
 	/**

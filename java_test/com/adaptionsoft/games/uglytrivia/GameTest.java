@@ -1,7 +1,9 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.Random;
+import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -31,6 +33,17 @@ public class GameTest {
 
 		play(game);
 
+	}
+
+	@Test
+	public void whenGameCreated_thenAllCategoriesAvailable() {
+
+		Game game = new Game();
+		Set<String> categories = game.getCategories();
+		Assert.assertTrue(categories.contains("Pop"));
+		Assert.assertTrue(categories.contains("Rock"));
+		Assert.assertTrue(categories.contains("Science"));
+		Assert.assertTrue(categories.contains("Sports"));
 	}
 
 	private void play(Game game) {
